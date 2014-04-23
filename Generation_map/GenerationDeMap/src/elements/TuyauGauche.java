@@ -17,20 +17,20 @@ public class TuyauGauche extends Element{
 	public void setPath() {
 		switch(this.couleur){
 		case BLEU_CLAIR:
-			this.path_image = "../ressources/images/tuyau_bleu_clair_gauche.png";
+			this.path_image = "../ressources/images/bleu/tuyau_bleu_clair_gauche.png";
 			break;
 		case BLEU_FONCE:
-			this.path_image = "../ressources/images/tuyau_bleu_fonce_gauche.png";
+			this.path_image = "../ressources/images/bleu/tuyau_bleu_fonce_gauche.png";
 			break;
 		case ENTREE:
-			this.path_image = "../ressources/images/tuyau_entree_gauche.png";
+			this.path_image = "../ressources/images/bleu/tuyau_entree_gauche.png";
 			break;
 		case JAUNE:
 			break;
 		case ROUGE:
 			break;
 		case SORTIE:
-			this.path_image = "../ressources/images/tuyau_sortie_gauche.png";
+			this.path_image = "../ressources/images/bleu/tuyau_sortie_gauche.png";
 			break;
 		case VERT:
 			break;

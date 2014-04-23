@@ -30,18 +30,17 @@ public class TuyauBas extends elements.Element 	{
 	public void setPath() {
 		switch(this.couleur){
 		case BLEU_CLAIR:
-			this.path_image = "../ressources/images/tuyau_bleu_clair_bas.png";
+			this.path_image = "../ressources/images/bleu/tuyau_bleu_clair_bas.png";
 			break;
 		case BLEU_FONCE:
-			this.path_image = "../ressources/images/tuyau_bleu_fonce_bas.png";
+			this.path_image = "../ressources/images/bleu/tuyau_bleu_fonce_bas.png";
 			break;
 		case ENTREE:
-			this.path_image = "../ressources/images/tuyau_entree_bas.png";
+			this.path_image = "../ressources/images/bleu/tuyau_entree_bas.png";
 			break;
 		case JAUNE:
 			break;
 		case ROUGE:
-			this.path_image = "../ressources/images/tuyau_rouge_sortie.png";
 			break;
 //pas de case SORTIE car un tuayu sortie qui pointe vers le bas est impossible .
 		case VERT:
