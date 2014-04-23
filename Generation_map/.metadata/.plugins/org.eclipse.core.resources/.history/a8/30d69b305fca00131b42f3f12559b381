@@ -1,0 +1,207 @@
+package grid;
+
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.GridLayout;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+
+import elements.Bloc;
+import elements.CouleurDeTuyau;
+import elements.Element;
+import elements.TuyauVerticalBas;
+import elements.TuyauVerticalHaut;
+
+/**
+ * La version actuelle d'un panneau de jeu .
+ * @author Leviathor
+ *
+ */
+public class PanneauV2 extends JPanel{
+
+	private Element[][] grille;
+	private String path_map;
+
+	/**
+	 * Le constructeur de la classe . 
+	 * Il prend en paramètrele chemin du fihcier texte contenant les infos de la map .
+	 * @param path_txt
+	 */
+	public PanneauV2(String path_txt) {
+		super();
+		this.path_map=path_txt;
+		this.setSize(768, 1344);
+		this.grille = new Element[21][12];
+		this.path_map = path_txt;
+		this.initGrille(recupTexteMap());
+		this.setLayout(new GridLayout(21,12));
+		this.repaint();
+	}
+
+	/**
+	 * La grosse méthode qui initialise la matrice d'éléments à partir du fichier texte de chemin path_map .
+	 * @param texte
+	 */
+	public void initGrille(String texte) {
+		String[] tableau = new String[265];//va contenir les String correspondant aux éléments (du genre 00,11,etc)
+		int index=0;//l'index de lecture du fichier .
+		for(int i=0;i<264;i++){//i est l'index du tableau où on écrit une des chaînes de caractère .
+			if(texte.substring(index, index+1).equals("\n")){
+				tableau[i] = "\n";
+				index++;
+			}
+			else{
+				String s = texte.substring(index, index+2);
+				tableau[i] = s;
+				index=index+2;
+			}
+		}
+		//voilà, on a rempli le tableau de String, maintenant on va remplir la matrice this.grille .
+		int index_j=0;
+		for(int i=0;i<264;i++){
+			String s = tableau[i];
+			int index_i = i%22;
+			switch(s){
+			case "00"://bloc noir
+				Bloc bloc = new Bloc(index_i*64, index_j*64);
+				this.grille[index_i][index_j]=bloc;
+				break;
+			case "11"://élément vide : aucune image n'est affichée, on voit l'image de fond .
+				grille[index_i][index_j]=null;
+				break;
+			case "SH"://tuyau de sortie dont l'entrée est vers le haut .
+				TuyauHaut sortie = new TuyauHaut(index_i*64, index_j*64,CouleurDeTuyau.SORTIE);
+				this.grille[index_i][index_j]=sortie;
+				break;
+				
+			case "SD"://tuyau de sortie dont l'entrée est a droite .
+				TuyauDroite sortieD = new TuyauDroite(index_i*64, index_j*64,CouleurDeTuyau.SORTIE);
+				this.grille[index_i][index_j]=sortieD;
+				break;
+				
+			case "SG"://tuyau de sortie dont l'entrée est a gauche .
+				TuyauGauche sortieG = new TuyauGauche(index_i*64, index_j*64,CouleurDeTuyau.SORTIE);
+				this.grille[index_i][index_j]=sortieG;
+				break;
+				
+			case "EG"://tuyau bleu clair dont l'entrée est à gauche
+				TuyauGauche entreeG = new TuyauGauche(index_i*64, index_j*64,CouleurDeTuyau.ENTREE);
+				this.grille[index_i][index_j]=entreeG;
+				break;
+				
+			case "ED":
+				TuyauDroite entreeD = new TuyauDroite(index_i*64, index_j*64,CouleurDeTuyau.ENTREE);
+				this.grille[index_i][index_j]=entreeD;
+				break;
+				
+			case "EH":
+				TuyauHaut entreeH = new TuyauHaut(index_i*64, index_j*64,CouleurDeTuyau.ENTREE);
+				this.grille[index_i][index_j]=entreeH;
+				break;
+				
+			case "EB":
+				TuyauBas entreeB = new TuyauBas(index_i*64, index_j*64,CouleurDeTuyau.ENTREE);
+				this.grille[index_i][index_j]=entreeB;
+				break;
+				
+			case "BG"://tuyau bleu foncé dont l'entrée est à gauche
+				TuyauGauche fonceG = new TuyauGauche(index_i*64, index_j*64,CouleurDeTuyau.BLEU_FONCE);
+				this.grille[index_i][index_j]=fonceG;
+				break;
+				
+			case "BD"://tuyau bleu foncé dont l'entrée est à droite
+				TuyauDroite fonceD = new TuyauDroite(index_i*64, index_j*64,CouleurDeTuyau.BLEU_FONCE);
+				this.grille[index_i][index_j]=fonceD;
+				break;
+				
+			case "BH":
+				TuyauHaut fonceH = new TuyauHaut(index_i*64, index_j*64,CouleurDeTuyau.BLEU_FONCE);
+				this.grille[index_i][index_j]=fonceH;
+				break;
+				
+			case "BB":
+				TuyauBas fonceB = new TuyauBas(index_i*64, index_j*64,CouleurDeTuyau.BLEU_FONCE);
+				this.grille[index_i][index_j]=fonceB;
+				break;
+				
+			case "bG"://tuyau bleu clair dont l'entrée est à gauche
+				TuyauGauche clairG = new TuyauGauche(index_i*64, index_j*64,CouleurDeTuyau.BLEU_CLAIR);
+				this.grille[index_i][index_j]=clairG;
+				break;
+				
+			case "bD":
+				TuyauDroite clairD = new TuyauDroite(index_i*64, index_j*64,CouleurDeTuyau.BLEU_CLAIR);
+				this.grille[index_i][index_j]=clairD;
+				break;
+				
+			case "bH":
+				TuyauHaut clairH = new TuyauHaut(index_i*64, index_j*64,CouleurDeTuyau.BLEU_CLAIR);
+				this.grille[index_i][index_j]=clairH;
+				break;
+				
+			case "bB":
+				TuyauBas clairB = new TuyauBas(index_i*64, index_j*64,CouleurDeTuyau.BLEU_CLAIR);
+				this.grille[index_i][index_j]=clairB;
+				break;
+				
+			case "\n":
+				index_j++;
+				break;
+			}
+		}
+	}
+	public String recupTexteMap() {
+		String txt="";
+		try{
+			FileReader r = new FileReader(new File(this.path_map));
+			BufferedReader lecteur = new BufferedReader(r);
+			String ligne = "";
+			try{
+				while((ligne = lecteur.readLine())!=null){
+					txt = txt+ligne+"\n";
+				}
+			}
+			catch(IOException e){
+				System.out.println("problème à la lecture la ligne");
+			}
+		}
+		catch(FileNotFoundException e){
+			System.out.println("le fichier "+this.path_map+" n'est pas trouvé. Eclipse s'excuse pour ce problème .");
+		}
+		System.out.println("Récupération de texte \n\n"+txt+"\n\n\n");
+		return txt;
+	}
+
+
+	@Override
+	public void paintComponent(Graphics g) {
+		Graphics2D g2d = (Graphics2D) g;
+		super.paintComponent(g2d);
+		for(int i = 0;i<21;i++){
+			for(int j = 0;j<12;j++) {
+				Element element = this.grille[i][j];
+				if(element!=null){
+					element.draw(g2d);
+				}
+			}
+		}
+	}
+
+	public static void main(String[] args) {
+		JFrame frame = new JFrame("Test_map_gen");
+		frame.setSize(1344,805);
+		PanneauV2 panneau = new PanneauV2("../ressources/map0V2.txt");
+		frame.setContentPane(panneau);
+		frame.setFocusable(true);
+		frame.setVisible(true);
+	}
+}
+

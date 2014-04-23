@@ -17,8 +17,8 @@ import javax.swing.JPanel;
 import elements.Bloc;
 import elements.CouleurDeTuyau;
 import elements.Element;
-import elements.TuyauVerticalBas;
-import elements.TuyauVerticalHaut;
+import elements.TuyauBas;
+import elements.TuyauHaut;
 
 public class Panneau extends JPanel{
 	private Element[][] grille;
@@ -59,7 +59,7 @@ public class Panneau extends JPanel{
 				break;
 				
 			case "r":
-				TuyauVerticalBas tuyau = new TuyauVerticalBas(index_i*64, index_j*64,CouleurDeTuyau.ROUGE);
+				TuyauBas tuyau = new TuyauBas(index_i*64, index_j*64,CouleurDeTuyau.ROUGE);
 				this.grille[index_i][index_j]=tuyau;
 				break;
 				//bug d'arrayindexoutofbounds lèl

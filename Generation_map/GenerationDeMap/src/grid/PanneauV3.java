@@ -24,8 +24,8 @@ import elements.CouleurDeTuyau;
 import elements.Element;
 import elements.Maria;
 import elements.MariaV3;
-import elements.TuyauVerticalBas;
-import elements.TuyauVerticalHaut;
+import elements.TuyauBas;
+import elements.TuyauHaut;
 
 /**
  * La version actuelle d'un panneau de jeu .
@@ -104,11 +104,11 @@ public class PanneauV3 extends JPanel implements KeyListener, Runnable{
 				break;
 
 			case "RB"://tuyau rouge dont l'entrée est vers le bas .
-				TuyauVerticalBas tuyau = new TuyauVerticalBas(index_i*64, index_j*64,CouleurDeTuyau.ROUGE);
+				TuyauBas tuyau = new TuyauBas(index_i*64, index_j*64,CouleurDeTuyau.ROUGE);
 				this.grille[index_i][index_j]=tuyau;
 				break;
 			case "SH"://tuyau de sortie dont l'entrée est vers le haut .
-				TuyauVerticalHaut sortie = new TuyauVerticalHaut(index_i*64, index_j*64,CouleurDeTuyau.SORTIE);
+				TuyauHaut sortie = new TuyauHaut(index_i*64, index_j*64,CouleurDeTuyau.SORTIE);
 				this.grille[index_i][index_j]=sortie;
 				break;
 			case "\n":

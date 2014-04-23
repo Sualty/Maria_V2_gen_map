@@ -17,8 +17,10 @@ import javax.swing.JPanel;
 import elements.Bloc;
 import elements.CouleurDeTuyau;
 import elements.Element;
-import elements.TuyauVerticalBas;
-import elements.TuyauVerticalHaut;
+import elements.TuyauBas;
+import elements.TuyauDroite;
+import elements.TuyauGauche;
+import elements.TuyauHaut;
 
 /**
  * La version actuelle d'un panneau de jeu .
@@ -77,22 +79,87 @@ public class PanneauV2 extends JPanel{
 			case "11"://élément vide : aucune image n'est affichée, on voit l'image de fond .
 				grille[index_i][index_j]=null;
 				break;
-
-			case "RB"://tuyau rouge dont l'entrée est vers le bas .
-				TuyauVerticalBas tuyau = new TuyauVerticalBas(index_i*64, index_j*64,CouleurDeTuyau.ROUGE);
-				this.grille[index_i][index_j]=tuyau;
-				break;
 			case "SH"://tuyau de sortie dont l'entrée est vers le haut .
-				TuyauVerticalHaut sortie = new TuyauVerticalHaut(index_i*64, index_j*64,CouleurDeTuyau.SORTIE);
+				TuyauHaut sortie = new TuyauHaut(index_i*64, index_j*64,CouleurDeTuyau.SORTIE);
 				this.grille[index_i][index_j]=sortie;
 				break;
+				
+			case "SD"://tuyau de sortie dont l'entrée est a droite .
+				TuyauDroite sortieD = new TuyauDroite(index_i*64, index_j*64,CouleurDeTuyau.SORTIE);
+				this.grille[index_i][index_j]=sortieD;
+				break;
+				
+			case "SG"://tuyau de sortie dont l'entrée est a gauche .
+				TuyauGauche sortieG = new TuyauGauche(index_i*64, index_j*64,CouleurDeTuyau.SORTIE);
+				this.grille[index_i][index_j]=sortieG;
+				break;
+				
+			case "EG"://tuyau bleu clair dont l'entrée est à gauche
+				TuyauGauche entreeG = new TuyauGauche(index_i*64, index_j*64,CouleurDeTuyau.ENTREE);
+				this.grille[index_i][index_j]=entreeG;
+				break;
+				
+			case "ED":
+				TuyauDroite entreeD = new TuyauDroite(index_i*64, index_j*64,CouleurDeTuyau.ENTREE);
+				this.grille[index_i][index_j]=entreeD;
+				break;
+				
+			case "EH":
+				TuyauHaut entreeH = new TuyauHaut(index_i*64, index_j*64,CouleurDeTuyau.ENTREE);
+				this.grille[index_i][index_j]=entreeH;
+				break;
+				
+			case "EB":
+				TuyauBas entreeB = new TuyauBas(index_i*64, index_j*64,CouleurDeTuyau.ENTREE);
+				this.grille[index_i][index_j]=entreeB;
+				break;
+				
+			case "BG"://tuyau bleu foncé dont l'entrée est à gauche
+				TuyauGauche fonceG = new TuyauGauche(index_i*64, index_j*64,CouleurDeTuyau.BLEU_FONCE);
+				this.grille[index_i][index_j]=fonceG;
+				break;
+				
+			case "BD"://tuyau bleu foncé dont l'entrée est à droite
+				TuyauDroite fonceD = new TuyauDroite(index_i*64, index_j*64,CouleurDeTuyau.BLEU_FONCE);
+				this.grille[index_i][index_j]=fonceD;
+				break;
+				
+			case "BH":
+				TuyauHaut fonceH = new TuyauHaut(index_i*64, index_j*64,CouleurDeTuyau.BLEU_FONCE);
+				this.grille[index_i][index_j]=fonceH;
+				break;
+				
+			case "BB":
+				TuyauBas fonceB = new TuyauBas(index_i*64, index_j*64,CouleurDeTuyau.BLEU_FONCE);
+				this.grille[index_i][index_j]=fonceB;
+				break;
+				
+			case "bG"://tuyau bleu clair dont l'entrée est à gauche
+				TuyauGauche clairG = new TuyauGauche(index_i*64, index_j*64,CouleurDeTuyau.BLEU_CLAIR);
+				this.grille[index_i][index_j]=clairG;
+				break;
+				
+			case "bD":
+				TuyauDroite clairD = new TuyauDroite(index_i*64, index_j*64,CouleurDeTuyau.BLEU_CLAIR);
+				this.grille[index_i][index_j]=clairD;
+				break;
+				
+			case "bH":
+				TuyauHaut clairH = new TuyauHaut(index_i*64, index_j*64,CouleurDeTuyau.BLEU_CLAIR);
+				this.grille[index_i][index_j]=clairH;
+				break;
+				
+			case "bB":
+				TuyauBas clairB = new TuyauBas(index_i*64, index_j*64,CouleurDeTuyau.BLEU_CLAIR);
+				this.grille[index_i][index_j]=clairB;
+				break;
+				
 			case "\n":
 				index_j++;
 				break;
 			}
 		}
 	}
-
 	public String recupTexteMap() {
 		String txt="";
 		try{
